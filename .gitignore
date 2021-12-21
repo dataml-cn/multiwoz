@@ -1,0 +1,5 @@
+.idea
+!data/*.zip
+model/model
+model/data
+*.pyc
