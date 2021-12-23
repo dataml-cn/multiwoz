@@ -298,11 +298,8 @@ def createDelexData(test):
     fin2 = open('data/multi-woz/dialogue_acts.json')
     data2 = json.load(fin2)
 
-    cnt = 10
-
     for i, dialogue_name in tqdm(enumerate(data)):
         dialogue = data[dialogue_name]
-        #print dialogue_name
 
         if test and i > 500:
             break
@@ -450,7 +447,7 @@ def buildDictionaries(word_freqs_usr, word_freqs_sys):
         json.dump(dicts[1], f,indent=2)
 
 
-def main():
+def main(test):
     print('Create delexicalized dialogues. Get yourself a coffee, this might take a while.')
     delex_data = createDelexData(test)
     print('Divide dialogues for separate bits - usr, sys, db, bs')
