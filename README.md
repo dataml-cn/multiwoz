@@ -10,8 +10,16 @@ Multi-Domain Wizard-of-Oz dataset (MultiWOZ), a fully-labeled collection of huma
     - environment: python 3.8.12, pytorch 1.10.1(CPU)
     - prepare data: add parameter `test`, True: 500 dialogs; False: all dialogs
     - test parameters model_no, default value: 15
+  
 
-## Install
+# Baseline
+
+:bangbang: This part relates to the first version of the dataset and evaluation scripts.
+
+### Requirements
+Python 3.8, `pytorch==1.10.1`
+
+#### Install
 
 ```bash
 # create env
@@ -30,6 +38,68 @@ conda install nltk scipy tqdm simplejson
 # remove env
 conda remove -n multiwoz-env --all
 ```
+
+
+### Preprocessing
+To download and pre-process the data run:
+
+```python create_delex_data.py```
+
+### Training
+To train the model run:
+
+```python train.py [--args=value]```
+
+Some of these args include:
+
+```
+// hyperparamters for model learning
+--max_epochs        : numbers of epochs
+--batch_size        : numbers of turns per batch
+--lr_rate           : initial learning rate
+--clip              : size of clipping
+--l2_norm           : l2-regularization weight
+--dropout           : dropout rate
+--optim             : optimization method
+
+// network structure
+--emb_size          : word vectors emedding size
+--use_attn          : whether to use attention
+--hid_size_enc      : size of RNN hidden cell
+--hid_size_pol      : size of policy hidden output
+--hid_size_dec      : size of RNN hidden cell
+--cell_type         : specify RNN type
+```
+
+## Testing
+To evaluate the trained model, run:
+
+```python test.py [--args=value]```
+
+## Results
+We ran a small grid search over various hyperparameter settings and reported the performance of the best model on the test set.
+The selection criterion was 0.5*match + 0.5*success+100*BLEU on the validation set.
+The final parameters were:
+
+```
+// hyperparamters for model learning
+--max_epochs        : 20
+--batch_size        : 64
+--lr_rate           : 0.005
+--clip              : 5.0
+--l2_norm           : 0.00001
+--dropout           : 0.0
+--optim             : Adam
+
+// network structure
+--emb_size          : 50
+--use_attn          : True
+--hid_size_enc      : 150
+--hid_size_pol      : 150
+--hid_size_dec      : 150
+--cell_type         : lstm
+```
+
 
 
 ## Versions
@@ -233,73 +303,6 @@ work, please cite the corresponding papers. The bibtex are listed below:
   pages={109--117},
   year={2020}
 }
-```
-
-# Baseline
-
-:bangbang: This part relates to the first version of the dataset and evaluation scripts.
-
-### Requirements
-Python 2 with `pip`, `pytorch==0.4.1`
-
-### Preprocessing
-To download and pre-process the data run:
-
-```python create_delex_data.py```
-
-### Training
-To train the model run:
-
-```python train.py [--args=value]```
-
-Some of these args include:
-
-```
-// hyperparamters for model learning
---max_epochs        : numbers of epochs
---batch_size        : numbers of turns per batch
---lr_rate           : initial learning rate
---clip              : size of clipping
---l2_norm           : l2-regularization weight
---dropout           : dropout rate
---optim             : optimization method
-
-// network structure
---emb_size          : word vectors emedding size
---use_attn          : whether to use attention
---hid_size_enc      : size of RNN hidden cell
---hid_size_pol      : size of policy hidden output
---hid_size_dec      : size of RNN hidden cell
---cell_type         : specify RNN type
-```
-
-## Testing
-To evaluate the trained model, run:
-
-```python test.py [--args=value]```
-
-## Results
-We ran a small grid search over various hyperparameter settings and reported the performance of the best model on the test set.
-The selection criterion was 0.5*match + 0.5*success+100*BLEU on the validation set.
-The final parameters were:
-
-```
-// hyperparamters for model learning
---max_epochs        : 20
---batch_size        : 64
---lr_rate           : 0.005
---clip              : 5.0
---l2_norm           : 0.00001
---dropout           : 0.0
---optim             : Adam
-
-// network structure
---emb_size          : 50
---use_attn          : True
---hid_size_enc      : 150
---hid_size_pol      : 150
---hid_size_dec      : 150
---cell_type         : lstm
 ```
 
 # License
