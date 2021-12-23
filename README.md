@@ -1,6 +1,6 @@
 # MultiWOZ
 
-This repo fork the [MultiWOZ](https://github.com/budzianowski/multiwoz)
+This repo fork the [budzianowski/multiwoz](https://github.com/budzianowski/multiwoz), MultiWOZ paper [Budzianowski et al. 2018, EMNLP](https://arxiv.org/abs/1810.00278)
 
 Multi-Domain Wizard-of-Oz dataset (MultiWOZ), a fully-labeled collection of human-human written conversations spanning over multiple domains and topics. At a size of 10k dialogues, it is at least one order of magnitude larger than all previous annotated task-oriented corpora.
 
