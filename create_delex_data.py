@@ -298,7 +298,7 @@ def createDelexData(test):
     fin2 = open('data/multi-woz/dialogue_acts.json')
     data2 = json.load(fin2)
 
-    for i, dialogue_name in tqdm(enumerate(data)):
+    for i, dialogue_name in tqdm(enumerate(data), total=len(data)):
         dialogue = data[dialogue_name]
 
         if test and i > 500:
@@ -457,5 +457,5 @@ def main(test):
 
 
 if __name__ == "__main__":
-    test = True
+    test = False
     main(test)
